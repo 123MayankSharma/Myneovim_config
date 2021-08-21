@@ -1,5 +1,5 @@
-##Read below for more info!
-This is my neovim config which i primarily use for programming with javascript and React and text editing.
+## Read below for more info!
+This is my neovim config which i primarily use for programming with javascript,React,C++ and text editing.
 
 I built this config on top of [nikvdp/nvim-lsp-config](https://github.com/nikvdp/nvim-lsp-config)
 
