@@ -2,7 +2,7 @@
 set mouse=a
 " Set Editor Font
 if exists(':GuiFont')
-     GuiFont! FiraCode\ Nerd\ Font:h12
+     GuiFont! FiraCode\ Nerd\ Font:h13
 
 endif
 

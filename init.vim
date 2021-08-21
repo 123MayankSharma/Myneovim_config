@@ -182,6 +182,23 @@ nnoremap <silent><C-Left> :tabprevious<CR>
 " set leader key to ,
 let g:mapleader=" "
 
+"Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+"Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
+
+
+
+
+
 " >> Telescope bindings
 nnoremap <Leader>pp :lua require'telescope.builtin'.builtin{}<CR>
 
@@ -247,7 +264,7 @@ require('gitsigns').setup {
     changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
   },
   numhl = false,
-  linehl = true,
+  linehl = false,
   keymaps = {
     -- Default keymap options
     noremap = true,
