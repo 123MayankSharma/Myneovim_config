@@ -26,7 +26,7 @@ call plug#begin(stdpath('data') . 'vimplug')
     Plug 'tomtom/tcomment_vim'
 call plug#end()
 
-" deep ocean,oceanic,pale night,darker
+let g:mapleader=" "
 
 " pane navigation
 nmap <silent> <c-k> :wincmd k<CR>
@@ -149,9 +149,9 @@ let bufferline.letters =
 " Sets the name of unnamed buffers. By default format is "[Buffer X]"
 " where X is the buffer number. But only a static string is accepted here.
 let bufferline.no_name_title = v:null
-
- inoremap <silent><expr> <CR> compe#confirm('<CR>')
-
+"
+"  inoremap <silent><expr> <CR> compe#confirm('<CR>')
+"
 
 
 " basic settings
@@ -180,7 +180,7 @@ nnoremap <silent><C-Right> :tabnext<CR>
 nnoremap <silent><C-Left> :tabprevious<CR>
 
 " set leader key to ,
-let g:mapleader=" "
+" let g:mapleader=" "
 
 "Copy to clipboard
 vnoremap  <leader>y  "+y
@@ -290,7 +290,7 @@ require('gitsigns').setup {
     follow_files = true
   },
   current_line_blame = false,
-  current_line_blame_delay = 1000,
+  current_line_blame_delay = 400,
   current_line_blame_position = 'eol',
   sign_priority = 6,
   update_debounce = 100,
