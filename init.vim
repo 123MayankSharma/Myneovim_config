@@ -14,8 +14,6 @@ call plug#begin(stdpath('data') . 'vimplug')
     Plug 'karb94/neoscroll.nvim'
     Plug 'hoob3rt/lualine.nvim'
     Plug 'projekt0n/github-nvim-theme'
-    Plug 'dstein64/vim-startuptime'
-    Plug 'bluz71/vim-moonfly-colors'
     Plug 'lukas-reineke/indent-blankline.nvim'
      Plug 'lewis6991/gitsigns.nvim'
     Plug 'tpope/vim-surround'
@@ -25,9 +23,8 @@ call plug#begin(stdpath('data') . 'vimplug')
    Plug 'windwp/nvim-ts-autotag'
     Plug 'tomtom/tcomment_vim'
 call plug#end()
-
+    
 let g:mapleader=" "
-
 " pane navigation
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
@@ -39,21 +36,23 @@ nnoremap <Space>sb :.,$s///g
 
 nmap <c-down> <c-d>
 nmap <c-up>   <c-u>
-nnoremap ; : 
-inoremap { {}<Esc>ha 
-
-inoremap [ []<Esc>ha 
-
-inoremap ( ()<Esc>ha
-
-
-inoremap ' ''<Esc>ha
-
-inoremap " ""<Esc>ha 
-" Move to previous/next
-
-
-
+" inoremap { {}<Esc>ha               
+" inoremap [ []<Esc>ha    
+" inoremap ( ()<Esc>ha    
+" "
+" "
+" inoremap ' ''<Esc>ha
+" "
+" inoremap " ""<Esc>ha
+inoremap " ""<left>
+inoremap ' ''<left> 
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap ` ``<left>
+" inoremap {<CR> {<CR>}<ESC>O
+" inoremap {;<CR> {<CR>};<ESC>O
+" Move to previous/next              
  nnoremap <silent>    <A-,> :BufferPrevious<CR>
 nnoremap <silent>    <A-.> :BufferNext<CR>
 " Re-order to previous/next
@@ -97,7 +96,7 @@ nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
 let bufferline = get(g:, 'bufferline', {})
 
 " Enable/disable animations
-let bufferline.animation = v:true
+let bufferline.animation = v:false
 
 " Enable/disable auto-hiding the tab bar when there is a single buffer
 let bufferline.auto_hide = v:false
@@ -331,6 +330,7 @@ theme='material'
   transparent=true
 
  })
+
 
 
 
