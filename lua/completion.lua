@@ -25,7 +25,8 @@ require'compe'.setup {
         spell = {kind = "   (Spell)"},
         tags = false,
         vim_dadbod_completion = true,
-        -- snippets_nvim = {kind = "  "},
+        snippets_nvim = {kind = "  "},
+        vsnip=true,
         -- ultisnips = {kind = "  "},
         treesitter = {kind = "  "},
         emoji = {kind = " ﲃ  (Emoji)", filetypes={"markdown", "text"}}

@@ -4,12 +4,18 @@ call plug#begin(stdpath('data') . 'vimplug')
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'neovim/nvim-lspconfig'
+    " Plug  'kdheepak/tabline.nvim'
+   Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ' 
+    Plug 'rafamadriz/friendly-snippets'
     Plug 'kabouzeid/nvim-lspinstall'
     Plug 'glepnir/lspsaga.nvim'
     Plug 'hrsh7th/nvim-compe'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
      Plug 'ahmedkhalf/lsp-rooter.nvim'
+    Plug 'Pocco81/Catppuccino.nvim'
+   Plug 'p00f/nvim-ts-rainbow'     
     Plug 'kyazdani42/nvim-web-devicons'  " needed for galaxyline icons
     Plug 'karb94/neoscroll.nvim'
     Plug 'hoob3rt/lualine.nvim'
@@ -22,9 +28,14 @@ call plug#begin(stdpath('data') . 'vimplug')
     Plug 'kyazdani42/nvim-tree.lua'
    Plug 'windwp/nvim-ts-autotag'
     Plug 'tomtom/tcomment_vim'
+    Plug 'mattn/emmet-vim'
+
 call plug#end()
-    
+" colorscheme catppuccino
+ set guioptions-=e " Use showtabline in gui vim
+ set sessionoptions+=tabpages,globals
 let g:mapleader=" "
+tnoremap kj <C-\><C-n>
 " pane navigation
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
@@ -34,6 +45,48 @@ nmap <silent> <c-h> :wincmd h<CR>
 " find and replace
 nnoremap <Space>sb :.,$s///g 
 
+" vsnip settings
+
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
+
+" If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
+let g:vsnip_filetypes = {}
+let g:vsnip_filetypes.javascriptreact = ["javascript"]
+let g:vsnip_filetypes.typescriptreact = ['typescript']
+let g:vsnip_filetypes.cpp=['cpp']
+
+
+
+"end vsnip
+"emmet settings
+
+" let g:user_emmet_mode='n'    "only enable normal mode functions.
+" let g:user_emmet_mode='inv'  "enable all functions, which is equal to
+let g:user_emmet_mode='a'    "enable all function in all mode.
+
+
+
+
+"emmet vim settings end
 nmap <c-down> <c-d>
 nmap <c-up>   <c-u>
 " inoremap { {}<Esc>ha               
@@ -195,7 +248,7 @@ vnoremap <leader>P "+P
 
 
 
-
+nnoremap jr !java %:r<CR> 
 
 
 " >> Telescope bindings
@@ -317,6 +370,18 @@ theme='material'
 
 })
 
+require'nvim-treesitter.configs'.setup {
+  rainbow = {
+    enable = true,
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    -- colors = {}, -- table of hex strings
+    -- termcolors = {} -- table of colour name strings
+  }
+}
+
+
+
    require'nvim-treesitter.configs'.setup {
   autotag = {
     enable = true,
@@ -330,8 +395,79 @@ theme='material'
   transparent=true
 
  })
+--
 
-
-
+-- require('catppuccino').setup(
+--     {
+-- 		colorscheme = "dark_catppuccino",
+-- 		transparency = true,
+-- 		term_colors = false,
+-- 		styles = {
+-- 			comments = "italic",
+-- 			functions = "italic",
+-- 			keywords = "italic",
+-- 			strings = "NONE",
+-- 			variables = "NONE",
+-- 		},
+-- 		integrations = {
+-- 			treesitter = true,
+-- 			native_lsp = {
+-- 				enabled = true,
+-- 				virtual_text = {
+-- 					errors = "italic",
+-- 					hints = "italic",
+-- 					warnings = "italic",
+-- 					information = "italic",
+-- 				},
+-- 				underlines = {
+-- 					errors = "underline",
+-- 					hints = "underline",
+-- 					warnings = "underline",
+-- 					information = "underline",
+-- 				}
+-- 			},
+-- 			lsp_trouble = false,
+-- 			lsp_saga = true,
+-- 			gitgutter = false,
+-- 			gitsigns = true,
+-- 			telescope = true,
+-- 			nvimtree = {
+-- 				enabled = true,
+-- 				show_root = true,
+-- 			},
+-- 			which_key = false,
+-- 			indent_blankline = {
+-- 				enabled = true,
+-- 				colored_indent_levels = true,
+-- 			},
+-- 			dashboard = false,
+-- 			neogit = false,
+-- 			vim_sneak = false,
+-- 			fern = false,
+-- 			barbar = false,
+-- 			bufferline = false,
+-- 			markdown = false,
+-- 			lightspeed = false,
+-- 			ts_rainbow = false,
+-- 			hop = false,
+-- 		}
+-- 	}
+-- )
+-- --
+--     require'tabline'.setup {
+--       -- Defaults configuration options
+--       enable = true,
+--       options = {
+--       -- If lualine is installed tabline will use separators configured in lualine by default.
+--       -- These options can be used to override those settings.
+--         -- section_separators = {'', ''},
+--         component_separators = {'', ''},
+--         max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
+--         show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
+--         show_devicons = true, -- this shows devicons in buffer section
+--         show_bufnr = true, -- this appends [bufnr] to buffer section,
+--         show_filename_only = true, -- shows base filename only instead of relative path in filename
+--       }
+--     }
 
 EOF
