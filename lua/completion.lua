@@ -26,10 +26,9 @@ require'compe'.setup {
         tags = false,
         vim_dadbod_completion = true,
         snippets_nvim = {kind = "  "},
-        vsnip=true,
         -- ultisnips = {kind = "  "},
         treesitter = {kind = "  "},
-        emoji = {kind = " ﲃ  (Emoji)", filetypes={"markdown", "text"}}
+        emoji = {kind = " ﲃ  (Emoji)", filetypes={"markdown", "text","javascript"}}
         -- for emoji press : (idk if that in compe tho)
     }
 }       

@@ -392,7 +392,7 @@ require'nvim-treesitter.configs'.setup {
  
  -- Lua
  require('github-theme').setup({ 
-  themeStyle='dark',
+  -- themeStyle='dark',
   transparent=true
 
  })
