@@ -74,6 +74,10 @@ let g:vsnip_filetypes = {}
 let g:vsnip_filetypes.javascriptreact = ["javascript"]
 let g:vsnip_filetypes.typescriptreact = ['typescript']
 let g:vsnip_filetypes.cpp=['cpp']
+let g:vsnip_filetypes.java=['java']
+let g:vsnip_filetypes.css=['css']
+let g:vsnip_filetypes.html=['html']
+let g:vsnip_filetypes.markdown=['md']
 
 
 
@@ -281,12 +285,9 @@ nnoremap <Leader>cs :lua require'telescope.builtin'.colorscheme{}<CR>
 
 nnoremap <leader>tm :lua require('material.functions').toggle_style()<CR>
 
-" >> setup nerdcomment key bindings
-let g:NERDCreateDefaultMappings = 0
-let g:NERDSpaceDelims = 1
 
-xnoremap <Leader>ci :call NERDComment('n', 'toggle')<CR>
-nnoremap <Leader>ci :call NERDComment('n', 'toggle')<CR>
+
+
 
 nnoremap <silent><Leader>bf :NvimTreeToggle<CR>
 
@@ -343,7 +344,7 @@ require('gitsigns').setup {
     follow_files = true
   },
   current_line_blame = false,
-  current_line_blame_delay = 400,
+  current_line_blame_delay = 800,
   current_line_blame_position = 'eol',
   sign_priority = 6,
   update_debounce = 100,
@@ -363,13 +364,13 @@ require("lsp-rooter").setup {
   }
 
 require('neoscroll').setup()
--- require('evil_lualine')
-require('lualine').setup({ 
-options={ 
-theme='material'
-}
-
-})
+require('evil_lualine')
+-- require('lualine').setup({ 
+-- options={ 
+-- theme='material'
+-- }
+--
+-- })
 
 require'nvim-treesitter.configs'.setup {
   rainbow = {
@@ -389,6 +390,73 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
+
+-- following options are the default
+require'nvim-tree'.setup {
+  -- disables netrw completely
+  disable_netrw       = true,
+  -- hijack netrw window on startup
+  hijack_netrw        = true,
+  -- open the tree when running this setup function
+  open_on_setup       = false,
+  -- will not open on setup if the filetype is in this list
+  ignore_ft_on_setup  = {},
+  -- closes neovim automatically when the tree is the last **WINDOW** in the view
+  auto_close          = false,
+  -- opens the tree when changing/opening a new tab if the tree wasn't previously opened
+  open_on_tab         = false,
+  -- hijacks new directory buffers when they are opened.
+  update_to_buf_dir   = {
+    -- enable the feature
+    enable = true,
+    -- allow to open the tree if it was previously closed
+    auto_open = true,
+  },
+  -- hijack the cursor in the tree to put it at the start of the filename
+  hijack_cursor       = false,
+  -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
+  update_cwd          = false,
+  -- show lsp diagnostics in the signcolumn
+  lsp_diagnostics     = true,
+  -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
+  update_focused_file = {
+    -- enables the feature
+    enable      = false,
+    -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
+    -- only relevant when `update_focused_file.enable` is true
+    update_cwd  = false,
+    -- list of buffer names / filetypes that will not update the cwd if the file isn't found under the current root directory
+    -- only relevant when `update_focused_file.update_cwd` is true and `update_focused_file.enable` is true
+    ignore_list = {}
+  },
+  -- configuration options for the system open command (`s` in the tree by default)
+  system_open = {
+    -- the command to run this, leaving nil should work in most cases
+    cmd  = nil,
+    -- the command arguments as a list
+    args = {}
+  },
+
+  view = {
+    -- width of the window, can be either a number (columns) or a string in `%`, for left or right side placement
+    width = 30,
+    -- height of the window, can be either a number (columns) or a string in `%`, for top or bottom side placement
+    height = 30,
+    -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
+    side = 'left',
+    -- if true the tree will resize itself after opening a file
+    auto_resize = true,
+    mappings = {
+      -- custom only false will merge the list with the default mappings
+      -- if true, it will only use your list to set the mappings
+      custom_only = false,
+      -- list of mappings to set on the tree manually
+      list = {}
+    }
+  }
+}
+
+
  
  -- Lua
  require('github-theme').setup({ 
@@ -396,6 +464,7 @@ require'nvim-treesitter.configs'.setup {
   transparent=true
 
  })
+
 --
 
 -- require('catppuccino').setup(
