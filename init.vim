@@ -2,6 +2,7 @@
 call plug#begin(stdpath('data') . 'vimplug')
    Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/popup.nvim'
+  Plug 'ahmedkhalf/project.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'neovim/nvim-lspconfig'
     Plug 'dsznajder/vscode-es7-javascript-react-snippets'
@@ -13,7 +14,6 @@ call plug#begin(stdpath('data') . 'vimplug')
     Plug 'hrsh7th/nvim-compe'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-     Plug 'ahmedkhalf/lsp-rooter.nvim'
     Plug 'Pocco81/Catppuccino.nvim'
    Plug 'p00f/nvim-ts-rainbow'     
     Plug 'kyazdani42/nvim-web-devicons'  " needed for galaxyline icons
@@ -29,10 +29,10 @@ call plug#begin(stdpath('data') . 'vimplug')
    Plug 'windwp/nvim-ts-autotag'
     Plug 'tomtom/tcomment_vim'
     Plug 'mattn/emmet-vim'
-   Plug 'pulkitgangwar/next.js-snippets' 
 
 call plug#end()
-" colorscheme catppuccino
+colorscheme github
+nnoremap <silent> rf :Telescope projects<CR>
 
 let g:mapleader=" "
 tnoremap kj <C-\><C-n>
@@ -206,8 +206,7 @@ let bufferline.letters =
 " where X is the buffer number. But only a static string is accepted here.
 let bufferline.no_name_title = v:null
 "
-"  inoremap <silent><expr> <CR> compe#confirm('<CR>')
-"
+inoremap <silent><expr> <C-Space> compe#complete()
 
 
 " basic settings
@@ -235,6 +234,7 @@ nnoremap <silent><C-Right> :tabnext<CR>
 
 nnoremap <silent><C-Left> :tabprevious<CR>
 
+nnoremap <silent><CR> :let @/ = ""<CR>
 " set leader key to ,
 " let g:mapleader=" "
 
@@ -356,11 +356,7 @@ require('gitsigns').setup {
 require("treesitter")
 -- require("statusbar")
 require("completion")
-require("lsp-rooter").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
+
 
 require('neoscroll').setup()
 require('evil_lualine')
@@ -381,6 +377,17 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
+  --project-nvim config
+require("nvim-tree").setup({
+  update_cwd = true,
+  update_focused_file = {
+    enable = true,
+    update_cwd = true
+  }
+  }
+  )
+
+require('telescope').load_extension('projects')
 
 
    require'nvim-treesitter.configs'.setup {
@@ -459,7 +466,6 @@ require'nvim-tree'.setup {
  
  -- Lua
  require('github-theme').setup({ 
-  -- themeStyle='dark',
   transparent=true
 
  })

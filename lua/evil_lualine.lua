@@ -138,7 +138,7 @@ ins_left {
 ins_left {
   'filename',
   condition = conditions.buffer_not_empty,
-  color = {fg = colors.magenta, gui = 'bold'}
+  color = {fg = colors.magenta}
 }
 
 ins_left {'location'}
@@ -173,8 +173,8 @@ ins_left {
     end
     return msg
   end,
-  icon = ' LSP:',
-  color = {fg = '#ffffff', gui = 'bold'}
+  icon = ' ',
+  color = {fg = '#ffffff'}
 }
 
 -- Add components to right sections
@@ -182,14 +182,14 @@ ins_right {
   'o:encoding', -- option component same as &encoding in viml
   upper = true, -- I'm not sure why it's upper case either ;)
   condition = conditions.hide_in_width,
-  color = {fg = colors.green, gui = 'bold'}
+  color = {fg = colors.green}
 }
 
 ins_right {
   'fileformat',
   upper = true,
   icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-  color = {fg = colors.green, gui = 'bold'}
+  color = {fg = colors.green}
 }
 
 ins_right {
