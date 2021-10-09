@@ -10,8 +10,8 @@ call plug#begin(stdpath('data') . 'vimplug')
     Plug 'hrsh7th/vim-vsnip-integ' 
     Plug 'rafamadriz/friendly-snippets'
     Plug 'kabouzeid/nvim-lspinstall'
-    Plug 'glepnir/lspsaga.nvim'
     Plug 'hrsh7th/nvim-compe'
+     Plug 'rinx/lspsaga.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
     Plug 'Pocco81/Catppuccino.nvim'
@@ -282,7 +282,6 @@ nnoremap <Leader>rg :lua require'telescope.builtin'.live_grep{}<CR>
 " pick color scheme
 nnoremap <Leader>cs :lua require'telescope.builtin'.colorscheme{}<CR>
 
-nnoremap <leader>tm :lua require('material.functions').toggle_style()<CR>
 
 
 
@@ -296,15 +295,19 @@ nnoremap <silent> <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> K     <cmd>Lspsaga hover_doc<CR>
+nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
 nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <C-p> <cmd>Lspsaga diagnostic_jump_prev<CR>
 nnoremap <silent> <C-n> <cmd>Lspsaga diagnostic_jump_next<CR>
 nnoremap <silent> gf    <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> ga    <cmd>Lspsaga code_action<CR>
+nnoremap <silent><leader>ga <cmd>lua require('lspsaga.codeaction').code_action()<CR>
 xnoremap <silent> ga    <cmd>Lspsaga range_code_action<CR>
 nnoremap <silent> gs    <cmd>Lspsaga signature_help<CR>
+nnoremap <silent> gh <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
+nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
+
 
 lua <<EOF
 require("lsp")
@@ -395,6 +398,19 @@ require('telescope').load_extension('projects')
     enable = true,
   }
 }
+
+
+
+local saga = require 'lspsaga'
+saga.init_lsp_saga()
+
+
+---------------------------
+
+
+
+
+
 
 
 -- following options are the default
