@@ -29,6 +29,8 @@ call plug#begin(stdpath('data') . 'vimplug')
    Plug 'windwp/nvim-ts-autotag'
     Plug 'tomtom/tcomment_vim'
     Plug 'mattn/emmet-vim'
+Plug 'folke/trouble.nvim'
+
 
 call plug#end()
 colorscheme github
@@ -176,7 +178,7 @@ let bufferline.icons = v:true
 
 " Sets the icon's highlight group.
 " If false, will use nvim-web-devicons colors
-let bufferline.icon_custom_colors = v:false
+let bufferline.icon_custom_colors = v:true
 
 " Configure icons on the bufferline.
 let bufferline.icon_separator_active = '▎'
@@ -252,7 +254,13 @@ vnoremap <leader>P "+P
 
 
 
-nnoremap jr !java %:r<CR> 
+"trouble maps
+nnoremap <silent><leader>xx <cmd>TroubleToggle<cr>
+nnoremap <silent><leader>xw <cmd>TroubleToggle lsp_workspace_diagnostics<cr>
+nnoremap<silent> <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
+nnoremap<silent> <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <silent><leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap <silent>gR <cmd>TroubleToggle lsp_references<cr>
 
 
 " >> Telescope bindings
@@ -438,9 +446,6 @@ require'nvim-tree'.setup {
   hijack_cursor       = false,
   -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
   update_cwd          = false,
-  -- show lsp diagnostics in the signcolumn
-  lsp_diagnostics     = true,
-  -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
   update_focused_file = {
     -- enables the feature
     enable      = false,
@@ -546,5 +551,10 @@ require'nvim-tree'.setup {
 -- )
 -- --
 
+require("trouble").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
 
 EOF
