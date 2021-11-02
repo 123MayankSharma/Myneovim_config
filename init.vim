@@ -2,6 +2,7 @@
 call plug#begin(stdpath('data') . 'vimplug')
    Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/popup.nvim'
+    Plug 'lewis6991/impatient.nvim'
   Plug 'ahmedkhalf/project.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'neovim/nvim-lspconfig'
@@ -9,7 +10,7 @@ call plug#begin(stdpath('data') . 'vimplug')
    Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/vim-vsnip-integ' 
     Plug 'rafamadriz/friendly-snippets'
-    Plug 'kabouzeid/nvim-lspinstall'
+    Plug 'williamboman/nvim-lsp-installer'
     Plug 'hrsh7th/nvim-compe'
      Plug 'rinx/lspsaga.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -418,6 +419,7 @@ saga.init_lsp_saga()
 
 
 
+require('impatient')
 
 
 
