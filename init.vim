@@ -3,6 +3,7 @@ call plug#begin(stdpath('data') . 'vimplug')
    Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/popup.nvim'
     Plug 'lewis6991/impatient.nvim'
+    Plug 'kassio/neoterm'
   Plug 'ahmedkhalf/project.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'neovim/nvim-lspconfig'
@@ -30,8 +31,8 @@ call plug#begin(stdpath('data') . 'vimplug')
    Plug 'windwp/nvim-ts-autotag'
     Plug 'tomtom/tcomment_vim'
     Plug 'mattn/emmet-vim'
-Plug 'folke/trouble.nvim'
-
+    Plug 'folke/trouble.nvim'
+    Plug 'windwp/nvim-autopairs'
 
 call plug#end()
 colorscheme github
@@ -47,6 +48,7 @@ nmap <silent> <c-h> :wincmd h<CR>
 
 " find and replace
 nnoremap <Space>sb :.,$s///g 
+inoremap <C-s> <cmd>:w<CR>
 
 " vsnip settings
 
@@ -104,13 +106,13 @@ nmap <c-up>   <c-u>
 " inoremap ' ''<Esc>ha
 " "
 " inoremap " ""<Esc>ha
-inoremap " ""<left>
-inoremap ' ''<left> 
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap ` ``<left>
-" inoremap {<CR> {<CR>}<ESC>O
+" inoremap " ""<left>
+" inoremap ' ''<left> 
+" inoremap ( ()<left>
+" inoremap [ []<left>
+" inoremap { {}<left>
+" inoremap ` ``<left>
+" " inoremap {<CR> {<CR>}<ESC>O
 " inoremap {;<CR> {<CR>};<ESC>O
 " Move to previous/next              
  nnoremap <silent>    <A-,> :BufferPrevious<CR>
@@ -291,7 +293,9 @@ nnoremap <Leader>rg :lua require'telescope.builtin'.live_grep{}<CR>
 " pick color scheme
 nnoremap <Leader>cs :lua require'telescope.builtin'.colorscheme{}<CR>
 
-
+" neoterm configuration
+nnoremap <Leader>rj :TREPLSendFile
+nnoremap <Leader>rs :TRELPSendSelection
 
 
 
@@ -558,5 +562,15 @@ require("trouble").setup {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
-
+-- autopairs
+ require('nvim-autopairs').setup{}
+ require("nvim-autopairs.completion.compe").setup({
+  map_cr = true, --  map <CR> on insert mode
+  map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
+  auto_select = false,  -- auto select first item
+  map_char = { -- modifies the function or method delimiter by filetypes
+    all = '(',
+    tex = '{'
+  }
+})
 EOF
