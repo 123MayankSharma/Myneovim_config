@@ -1,5 +1,6 @@
 
 call plug#begin(stdpath('data') . 'vimplug')
+    Plug 'goolord/alpha-nvim'
    Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/popup.nvim'
     Plug 'lewis6991/impatient.nvim'
@@ -492,6 +493,8 @@ require'nvim-tree'.setup {
 }
 
 
+ -- alpha-nvim config
+ require'alpha'.setup(require'alpha.themes.startify'.opts)
  
  -- Lua
  require('github-theme').setup({ 
