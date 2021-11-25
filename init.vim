@@ -3,7 +3,7 @@ call plug#begin(stdpath('data') . 'vimplug')
    Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/popup.nvim'
     Plug 'lewis6991/impatient.nvim'
-    Plug 'kassio/neoterm'
+   Plug 'vimlab/split-term.vim' 
   Plug 'ahmedkhalf/project.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'neovim/nvim-lspconfig'
@@ -45,6 +45,8 @@ nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 nmap <silent> <c-h> :wincmd h<CR>
+"  move from terminal split back to vim
+nnoremap bv <C-W><C-W>
 
 " find and replace
 nnoremap <Space>sb :.,$s///g 
@@ -234,7 +236,8 @@ set virtualedit=all
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set autoindent
 set mouse=a  " mouse support
-
+set splitright
+set splitbelow
 nnoremap <silent><C-Right> :tabnext<CR>
 
 nnoremap <silent><C-Left> :tabprevious<CR>
@@ -294,9 +297,8 @@ nnoremap <Leader>rg :lua require'telescope.builtin'.live_grep{}<CR>
 nnoremap <Leader>cs :lua require'telescope.builtin'.colorscheme{}<CR>
 
 " neoterm configuration
-nnoremap <Leader>rj :TREPLSendFile
-nnoremap <Leader>rs :TRELPSendSelection
-
+nnoremap <Leader>rj :Term java oops.java<CR>
+nnoremap <Leader>rc :Term g++ @% && ./a.out
 
 
 
