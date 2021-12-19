@@ -40,7 +40,7 @@ call plug#end()
 colorscheme github_dark_default
 " colorscheme ayu-dark
 nnoremap <leader>tm :lua require('material.functions').toggle_style()<CR>
-
+ini
 nnoremap <silent> rf :Telescope projects<CR>
 
 "jump to tag
@@ -247,6 +247,10 @@ set autoindent
 set mouse=a  " mouse support
 set splitright
 set splitbelow
+set autowrite
+
+filetype plugin on
+" autocmd FileType cpp set makeprg=g++\ '%'\ &&\ ./a.out
 nnoremap <silent><C-Right> :tabnext<CR>
 
 nnoremap <silent><C-Left> :tabprevious<CR>
@@ -310,8 +314,8 @@ nnoremap <Leader>cs :lua require'telescope.builtin'.colorscheme{}<CR>
 nnoremap <Leader>le <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
 " neoterm configuration
-nnoremap <Leader>rj :sp \| term java '%'<CR>i
-nnoremap <Leader>rc :sp \| term g++ '%' && ./a.out<CR>i
+autocmd FileType java nnoremap <Leader>rc :sp \| term java '%'<CR>i
+autocmd FileType cpp  nnoremap <Leader>rc :sp \| term g++ '%' && ./a.out<CR>i
 " nnoremap <Leader>rc :let @F = "<c-r>% | sp | term g++ '<c-r>F' && ./a.out<cr>i   
 "
 "floaterm settings
