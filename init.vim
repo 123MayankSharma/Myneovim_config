@@ -1,10 +1,13 @@
 
 call plug#begin(stdpath('data') . 'vimplug')
+    Plug 'Shatur/neovim-ayu'
+   Plug 'norcalli/nvim-colorizer.lua' 
+    Plug 'SmiteshP/nvim-gps'
+    Plug 'tpope/vim-commentary'
+    Plug 'JoosepAlviste/nvim-ts-context-commentstring'
     Plug 'goolord/alpha-nvim'
    Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/popup.nvim'
-    Plug 'lewis6991/impatient.nvim'
-   Plug 'vimlab/split-term.vim' 
   Plug 'ahmedkhalf/project.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'neovim/nvim-lspconfig'
@@ -17,7 +20,6 @@ call plug#begin(stdpath('data') . 'vimplug')
      Plug 'rinx/lspsaga.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-    Plug 'Pocco81/Catppuccino.nvim'
    Plug 'p00f/nvim-ts-rainbow'     
     Plug 'kyazdani42/nvim-web-devicons'  " needed for galaxyline icons
     Plug 'karb94/neoscroll.nvim'
@@ -30,29 +32,33 @@ call plug#begin(stdpath('data') . 'vimplug')
     Plug 'tpope/vim-fugitive'
     Plug 'kyazdani42/nvim-tree.lua'
    Plug 'windwp/nvim-ts-autotag'
-    Plug 'tomtom/tcomment_vim'
     Plug 'mattn/emmet-vim'
     Plug 'folke/trouble.nvim'
     Plug 'windwp/nvim-autopairs'
-
+    Plug 'voldikss/vim-floaterm'
 call plug#end()
-colorscheme github
+colorscheme github_dark_default
+" colorscheme ayu-dark
+nnoremap <leader>tm :lua require('material.functions').toggle_style()<CR>
+
 nnoremap <silent> rf :Telescope projects<CR>
 
+"jump to tag
+nnoremap jt  Vit<Esc>
 let g:mapleader=" "
 tnoremap kj <C-\><C-n>
 " pane navigation
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-l> :wincmd l<CR>
-nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-k> <C-w>k
+nmap <silent> <c-j> <C-w>j
+nmap <silent> <c-l> <C-w>l
+nmap <silent> <c-h> <C-w>h
 "  move from terminal split back to vim
 nnoremap bv <C-W><C-W>
 
 " find and replace
 nnoremap <Space>sb :.,$s///g 
+nnoremap <C-s> <cmd>:w<CR>
 inoremap <C-s> <cmd>:w<CR>
-
 " vsnip settings
 
 " Expand
@@ -95,6 +101,8 @@ let g:vsnip_filetypes.markdown=['md']
 " let g:user_emmet_mode='inv'  "enable all functions, which is equal to
 let g:user_emmet_mode='a'    "enable all function in all mode.
 
+
+inoremap jk <Esc>
 
 
 
@@ -218,7 +226,7 @@ inoremap <silent><expr> <C-Space> compe#complete()
 
 
 " basic settings
-" syntax on
+syntax off
 set cursorline
 set number
 set relativenumber
@@ -269,7 +277,9 @@ nnoremap<silent> <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <silent><leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap <silent>gR <cmd>TroubleToggle lsp_references<cr>
 
-
+nnoremap cj <esc>I{/* <esc>A  */}<esc>2bi
+vnoremap <leader>cj :norm cjx<CR>
+ 
 " >> Telescope bindings
 nnoremap <Leader>pp :lua require'telescope.builtin'.builtin{}<CR>
 
@@ -297,11 +307,27 @@ nnoremap <Leader>rg :lua require'telescope.builtin'.live_grep{}<CR>
 " pick color scheme
 nnoremap <Leader>cs :lua require'telescope.builtin'.colorscheme{}<CR>
 
+nnoremap <Leader>le <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+
 " neoterm configuration
-nnoremap <Leader>rj :Term java oops.java<CR>
-nnoremap <Leader>rc :Term g++ @% && ./a.out
-
-
+nnoremap <Leader>rj :sp \| term java '%'<CR>i
+nnoremap <Leader>rc :sp \| term g++ '%' && ./a.out<CR>i
+" nnoremap <Leader>rc :let @F = "<c-r>% | sp | term g++ '<c-r>F' && ./a.out<cr>i   
+"
+"floaterm settings
+nnoremap <Leader>ot :FloatermNew<CR>
+nnoremap <Leader>tt :FloatermToggle<CR>
+nnoremap <Leader>kt :FloatermKill<CR>
+nnoremap <Leader>nt :FloatermNext<CR>
+nnoremap <Leader>pt :FloatermPrev<CR>
+" let g:floaterm_borderchars='========='
+let g:floaterm_autoinsert=v:false
+" let g:floaterm_title='floaterm($1|$2)'
+let g:floaterm_wintype='split'
+let g:floaterm_width=1.0
+let g:floaterm_height=0.4
+let g:floaterm_position='rightbelow'
+""""""""""""""""""""""""""""""""""""""
 
 nnoremap <silent><Leader>bf :NvimTreeToggle<CR>
 
@@ -312,7 +338,7 @@ nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
-nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <C-p> <cmd>Lspsaga diagnostic_jump_prev<CR>
 nnoremap <silent> <C-n> <cmd>Lspsaga diagnostic_jump_next<CR>
 nnoremap <silent> gf    <cmd>lua vim.lsp.buf.formatting()<CR>
@@ -361,8 +387,14 @@ require('gitsigns').setup {
     interval = 1000,
     follow_files = true
   },
-  current_line_blame = false,
-  current_line_blame_delay = 800,
+  current_line_blame = true,
+  -- current_line_blame_delay = 800,
+  --   current_line_blame_opts = {
+  --   virt_text = true,
+  --   virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+  --   delay = 1000,
+  --   ignore_whitespace = false,
+  -- },
   current_line_blame_position = 'eol',
   sign_priority = 6,
   update_debounce = 100,
@@ -371,6 +403,24 @@ require('gitsigns').setup {
   use_decoration_api = true,
   use_internal_diff = true,  -- If luajit is present
 }
+
+--require 'colorizer'.setup({
+--  'css';
+--  'javascript';
+--  html = { mode = 'background' };
+--}, { mode = 'foreground' },
+--DEFAULT_OPTIONS = {
+--	RGB      = true;         -- #RGB hex codes
+--	RRGGBB   = true;         -- #RRGGBB hex codes
+--	names    = true;         -- "Name" codes like Blue
+--	RRGGBBAA = true;        -- #RRGGBBAA hex codes
+--	rgb_fn   = true;        -- CSS rgb() and rgba() functions
+--	hsl_fn   = true;        -- CSS hsl() and hsla() functions
+--	css      = true;        -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+--	css_fn   = true;        -- Enable all CSS *functions*: rgb_fn, hsl_fn
+--	-- Available modes: foreground, background
+--	mode     = 'background'; -- Set the display mode.
+--  })
 
 require("treesitter")
 -- require("statusbar")
@@ -397,6 +447,11 @@ require'nvim-treesitter.configs'.setup {
 }
 
   --project-nvim config
+
+
+require("nvim-gps").setup()
+
+  
 require("nvim-tree").setup({
   update_cwd = true,
   update_focused_file = {
@@ -426,7 +481,6 @@ saga.init_lsp_saga()
 
 
 
-require('impatient')
 
 
 
@@ -457,10 +511,10 @@ require'nvim-tree'.setup {
   update_cwd          = true,
   update_focused_file = {
     -- enables the feature
-    enable      = false,
+    enable      = true,
     -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
     -- only relevant when `update_focused_file.enable` is true
-    update_cwd  = false,
+    update_cwd  = true,
     -- list of buffer names / filetypes that will not update the cwd if the file isn't found under the current root directory
     -- only relevant when `update_focused_file.update_cwd` is true and `update_focused_file.enable` is true
     ignore_list = {}
@@ -493,102 +547,82 @@ require'nvim-tree'.setup {
 }
 
 
- -- alpha-nvim config
- require'alpha'.setup(require'alpha.themes.startify'.opts)
- 
- -- Lua
- require('github-theme').setup({ 
-  transparent=true
 
- })
-
---indent_blankline setup
-
-vim.opt.termguicolors = true
-vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
-
-vim.opt.list = true
-vim.opt.listchars:append("space:⋅")
-vim.opt.listchars:append("eol: ")
-
-require("indent_blankline").setup {
-    space_char_blankline = " ",
-    char_highlight_list = {
-        "IndentBlanklineIndent1",
-        "IndentBlanklineIndent2",
-        "IndentBlanklineIndent3",
-        "IndentBlanklineIndent4",
-        "IndentBlanklineIndent5",
-        "IndentBlanklineIndent6",
-    },
+require'nvim-treesitter.configs'.setup {
+  context_commentstring = {
+    enable = true,
+    config = {
+      javascript = {
+        __default = '// %s',
+        jsx_element = '{/* %s */}',
+        jsx_fragment = '{/* %s */}',
+        jsx_attribute = '// %s',
+        comment = '// %s'
+      }
+    }
+  }
 }
 
 
 
+
+
+
+
+ -- alpha-nvim config
+ require'alpha'.setup(require'alpha.themes.startify'.opts)
+ 
+ -- Lua
+-- require('github-theme').setup({ 
+--  transparent=true,
+--  hide_inactive_statusline=true,
+--   comment_style = "italic",
+--  keyword_style = "italic",
+--    function_style = "italic",
+--   variable_style = "italic",
+--   dark_float=true,
+--   dark_sidebar=true,
+--
+--
+--
+-- })
+
+-- ayu-vim setup
+ require('ayu').setup({
+    mirage = false, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
+    overrides = {}, 
+})
+
+--indent_blankline setup
+
+--vim.opt.termguicolors = true
+-- vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
+ --vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
+ --vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
+--
+--vim.opt.list = true
+-- vim.opt.listchars:append("space: ")
+-- vim.opt.listchars:append("eol: ")
+--
+-- require("indent_blankline").setup {
+--     space_char_blankline = " ",
+--     char_highlight_list = {
+--        "IndentBlanklineIndent1",
+--        "IndentBlanklineIndent2",
+--         "IndentBlanklineIndent3",
+--         "IndentBlanklineIndent4",
+--        "IndentBlanklineIndent5",
+--         "IndentBlanklineIndent6",
+--     },
+--}
 --
 
--- require('catppuccino').setup(
---     {
--- 		colorscheme = "dark_catppuccino",
--- 		transparency = true,
--- 		term_colors = false,
--- 		styles = {
--- 			comments = "italic",
--- 			functions = "italic",
--- 			keywords = "italic",
--- 			strings = "NONE",
--- 			variables = "NONE",
--- 		},
--- 		integrations = {
--- 			treesitter = true,
--- 			native_lsp = {
--- 				enabled = true,
--- 				virtual_text = {
--- 					errors = "italic",
--- 					hints = "italic",
--- 					warnings = "italic",
--- 					information = "italic",
--- 				},
--- 				underlines = {
--- 					errors = "underline",
--- 					hints = "underline",
--- 					warnings = "underline",
--- 					information = "underline",
--- 				}
--- 			},
--- 			lsp_trouble = false,
--- 			lsp_saga = true,
--- 			gitgutter = false,
--- 			gitsigns = true,
--- 			telescope = true,
--- 			nvimtree = {
--- 				enabled = true,
--- 				show_root = true,
--- 			},
--- 			which_key = false,
--- 			indent_blankline = {
--- 				enabled = true,
--- 				colored_indent_levels = true,
--- 			},
--- 			dashboard = false,
--- 			neogit = false,
--- 			vim_sneak = false,
--- 			fern = false,
--- 			barbar = false,
--- 			bufferline = false,
--- 			markdown = false,
--- 			lightspeed = false,
--- 			ts_rainbow = false,
--- 			hop = false,
--- 		}
--- 	}
--- )
--- --
+
+
+
 
 require("trouble").setup {
     -- your configuration comes here
@@ -603,7 +637,8 @@ require("trouble").setup {
   auto_select = false,  -- auto select first item
   map_char = { -- modifies the function or method delimiter by filetypes
     all = '(',
-    tex = '{'
+    tex = '{',
   }
 })
+
 EOF

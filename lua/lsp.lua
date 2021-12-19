@@ -3,10 +3,11 @@
 -- Note: You can set a prefix per lsp server in the lv-globals.lua file
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = {
-      prefix = "",
-      spacing = 0,
-    },
+    -- virtual_text = {
+    --   prefix = "⬛",
+    --   spacing = 3,
+    -- },
+    virtual_text=false, 
     signs = true,
     underline = true,
     update_in_insert=true
@@ -59,6 +60,20 @@ local function documentHighlight(client, bufnr)
         )
     end
 end
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
+
+require'lspconfig'.tsserver.setup {
+  capabilities = capabilities,
+}
 
 local lsp_config = {}
 
